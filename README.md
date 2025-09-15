@@ -8,12 +8,12 @@ Aqui você encontrará toda a estrutura necessária para rodar a aplicação em 
 ## ⚙️ Como Rodar o Projeto
 1. **Clone este repositório**  
    ```bash
-   git clone <URL_DO_REPOSITORIO>
+   git clone https://github.com/DebugoDev/BackendProject.git
    ```
 
 2. **Acesse a pasta do projeto**  
    ```bash
-   cd nome-do-projeto
+   cd backendproject
    ```
 
 3. **Instale as dependências**  
