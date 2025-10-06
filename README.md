@@ -23,7 +23,7 @@ Aqui você encontrará toda a estrutura necessária para rodar a aplicação em 
 
 4. **Inicie o servidor**  
    ```bash
-   npm start
+   npm run dev
    ```
 
 5. A aplicação estará rodando em:  
@@ -40,3 +40,19 @@ Aqui você encontrará toda a estrutura necessária para rodar a aplicação em 
 ---
 
 ✨ Feito com dedicação para a disciplina de **Desenvolvimento Backend**.  
+
+---
+
+## 🔐 DOTENV
+
+Crie um arquivo `.env` na raiz do projeto com as seguintes configurações:
+
+```
+DB_HOST=host
+DB_PORT=port
+DB_USERNAME=username
+DB_PASSWORD=password
+DB_DATABASE=database
+
+PORT=3000
+```

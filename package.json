@@ -1,0 +1,43 @@
+{
+    "name": "backendproject",
+    "version": "1.0.0",
+    "description": "Este repositório contém o projeto desenvolvido para a disciplina de **Desenvolvimento Backend**, utilizando **Node.js** e **Express**.  \r Aqui você encontrará toda a estrutura necessária para rodar a aplicação em ambiente local e entender como ela foi construída.",
+    "main": "index.js",
+    "scripts": {
+        "dev": "cross-env NODE_ENV=dev ts-node-dev --rs --cls --ignore-watch node_modules src/server.ts",
+        "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/DebugoDev/BackendProject.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "commonjs",
+    "bugs": {
+        "url": "https://github.com/DebugoDev/BackendProject/issues"
+    },
+    "homepage": "https://github.com/DebugoDev/BackendProject#readme",
+    "devDependencies": {
+        "@types/cors": "^2.8.19",
+        "@types/express": "^5.0.3",
+        "@types/node": "^24.7.0",
+        "cross-env": "^10.1.0",
+        "nodemon": "^3.1.10",
+        "ts-node": "^10.9.2",
+        "ts-node-dev": "^2.0.0",
+        "typescript": "^5.9.3"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^17.2.3",
+        "express": "^5.1.0",
+        "http": "^0.0.1-security",
+        "pg": "^8.16.3",
+        "reflect-metadata": "^0.2.2",
+        "socket.io": "^4.8.1",
+        "typeorm": "^0.3.27"
+    }
+}
