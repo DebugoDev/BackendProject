@@ -3,8 +3,8 @@ import { DataSource, DataSourceOptions } from "typeorm";
 import "dotenv/config";
 
 const buildSettings = (): DataSourceOptions => {
-    const entitiesPath: string = path.join(__dirname, './entities/**.{ts,js}');
-    const migrationPath: string = path.join(__dirname, './migrations/**.{ts,js}');
+    const entitiesPath: string = path.join(__dirname, '../entities/**.{ts,js}');
+    const migrationPath: string = path.join(__dirname, '../migrations/**.{ts,js}');
 
     const host: string | undefined = process.env.DB_HOST;
     if (!host) throw new Error("Missing env var: 'DB_HOST'");

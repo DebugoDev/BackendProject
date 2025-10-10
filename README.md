@@ -56,3 +56,25 @@ DB_DATABASE=database
 
 PORT=3000
 ```
+
+## 🗂️ Migrations (TypeORM)
+
+Este projeto utiliza TypeORM para gerenciar o banco de dados e suas alterações de forma estruturada.
+
+### Gerar uma nova migration
+
+Sempre que você fizer alterações no modelo do banco de dados (entidades), gere uma nova migration com o seguinte comando:
+
+```
+npm run typeorm migration:generate ./src/migrations/{nome-da-migration}
+```
+> Substitua {nome-da-migration} por um nome descritivo que indique a alteração (ex.: CreateUsersTable).
+
+
+### Rodar as migrations
+
+Para aplicar as migrations e atualizar o banco de dados com as alterações definidas, execute:
+
+```
+npm run typeorm migration:run
+```
