@@ -55,6 +55,8 @@ DB_PASSWORD=password
 DB_DATABASE=database
 
 PORT=3000
+
+SECRET_KEY=key
 ```
 
 ## 🗂️ Migrations (TypeORM)
