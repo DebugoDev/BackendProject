@@ -6,6 +6,6 @@ import TaskController from "../controllers/TaskController";
 const taskRouter: Router = Router();
 
 taskRouter.post("/", validateBody(TaskSchema.creation), TaskController.create);
-taskRouter.delete("/deleteTask", validateBody(TaskSchema.creation), TaskController.create);
+taskRouter.delete("/deleteTask", validateBody(TaskSchema.deletion), TaskController.remove);
 
 export default taskRouter;
