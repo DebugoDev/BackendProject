@@ -1,30 +1,33 @@
-import { Request, Response } from "express";
-import TaskSchema, { TTaskCreation, TTaskDeletion } from "../schemas/TaskSchema";
+import { Request, Response, NextFunction } from "express";
+import TaskSchema, { TTaskCreation } from "../schemas/TaskSchema";
 import { createTask, deleteTask } from "../services/task.services";
 
 export default class TaskController {
-    public static create = async (req: Request, res: Response) => {
+    public static create = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const parsed: TTaskCreation = TaskSchema.creation.parse(req.body);
-            const newTask = await createTask(parsed);
+            const userId = (req as any).userSession.id;
+
+            const parsed: TTaskCreation = TaskSchema.creation.parse({
+                ...req.body,
+                userId,
+            });
+
+            const newTask = await createTask(parsed, userId);
             return res.status(201).json(newTask);
-        } catch (error: any) {
-            return res.status(400).json({ message: error.errors || "Erro ao criar tarefa" });
+        } catch (error) {
+            next(error);
         }
     };
 
-    public static remove = async (req: Request, res: Response) => {
+    public static remove = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const parsed: TTaskDeletion = TaskSchema.deletion.parse({
-                id: req.params.id,
-                userId: req.body.userId,
-            });
+            const userId = (req as any).userSession.id;
+            const taskId = req.params.id;
 
-            await deleteTask(parsed.id, parsed.userId);
+            await deleteTask(taskId, userId);
             return res.status(204).send();
-        } catch (error: any) {
-            return res.status(400).json({ message: error || "Erro ao deletar tarefa" });
+        } catch (error) {
+            next(error);
         }
     };
 }
-
