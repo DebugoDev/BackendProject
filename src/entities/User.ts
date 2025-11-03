@@ -10,6 +10,6 @@ export default class User extends BaseEntity {
     @Column()
     password?: string;
 
-    @OneToMany(() => Task, (tasl) => tasl.user, { cascade: true })
+    @OneToMany(() => Task, (task) => task.user, { cascade: true })
     tasks?: Task[];
 }

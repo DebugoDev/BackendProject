@@ -23,7 +23,7 @@ export const validateToken = async (req: Request, res: Response, next: NextFunct
         if (!auth) throw new AppError("Missing bearer token!", 401);
 
         const [, token] = auth.split(" ");
-        const userId = await verifyToken(token)
+        const userId = await verifyToken(token);
         if (!userId) throw new AppError("Invalid token!", 401);
 
         (req as any).userSession = new UserSession(userId);
