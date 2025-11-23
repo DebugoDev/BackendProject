@@ -49,3 +49,64 @@ export const deleteTask = async (id: string, userId: string): Promise<void> => {
 
     await repo.remove(task);
 };
+
+export const listTasks = async (userId: string): Promise<Partial<Task>[]> => {
+    const repo = AppDataSource.getRepository(Task);
+
+    const tasks = await repo.find({
+        where: { user: { id: userId } },
+        relations: ["user"],
+    });
+
+    return tasks.map(t => ({
+        id: t.id,
+        title: t.title,
+        description: t.description,
+        done: t.done,
+    }));
+};
+
+export const getTaskById = async (id: string, userId: string): Promise<Partial<Task>> => {
+    const repo = AppDataSource.getRepository(Task);
+
+    const task = await repo.findOne({
+        where: { id },
+        relations: ["user"],
+    });
+
+    if (!task) throw new AppError("Tarefa não encontrada!", 404);
+    if (task.user?.id !== userId) throw new AppError("Não autorizado!", 403);
+
+    return {
+        id: task.id,
+        title: task.title,
+        description: task.description,
+        done: task.done,
+    };
+};
+
+export const updateTask = async (
+    id: string,
+    userId: string,
+    payload: Partial<Task>
+): Promise<Partial<Task>> => {
+    const repo = AppDataSource.getRepository(Task);
+
+    const task = await repo.findOne({
+        where: { id },
+        relations: ["user"],
+    });
+
+    if (!task) throw new AppError("Tarefa não encontrada!", 404);
+    if (task.user?.id !== userId) throw new AppError("Não autorizado!", 403);
+
+    repo.merge(task, payload);
+    const updated = await repo.save(task);
+
+    return {
+        id: updated.id,
+        title: updated.title,
+        description: updated.description,
+        done: updated.done,
+    };
+};

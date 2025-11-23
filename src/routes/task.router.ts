@@ -9,5 +9,9 @@ taskRouter.use(validateToken);
 
 taskRouter.post("/", validateBody(TaskSchema.creation), TaskController.create);
 taskRouter.delete("/:id", TaskController.remove);
+taskRouter.get("/", TaskController.list);
+taskRouter.get("/:id", TaskController.retrieve);
+taskRouter.put("/:id", validateBody(TaskSchema.update), TaskController.update);
+
 
 export default taskRouter;
