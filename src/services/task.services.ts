@@ -3,8 +3,11 @@ import Task from "../entities/Task";
 import User from "../entities/User";
 import AppError from "../errors";
 import { TTaskCreation } from "../schemas/TaskSchema";
+import { validate as uuidValidate } from "uuid";
 
 export const createTask = async (payload: TTaskCreation, userId: string): Promise<Partial<Task>> => {
+    if (!uuidValidate(userId)) throw new AppError("ID de usuário inválido!", 400);
+
     const taskRepo = AppDataSource.getRepository(Task);
     const userRepo = AppDataSource.getRepository(User);
 
@@ -36,6 +39,9 @@ export const createTask = async (payload: TTaskCreation, userId: string): Promis
 };
 
 export const deleteTask = async (id: string, userId: string): Promise<void> => {
+    if (!uuidValidate(id)) throw new AppError("ID de tarefa inválido!", 400);
+    if (!uuidValidate(userId)) throw new AppError("ID de usuário inválido!", 400);
+
     const repo = AppDataSource.getRepository(Task);
 
     const task = await repo.findOne({
@@ -44,13 +50,14 @@ export const deleteTask = async (id: string, userId: string): Promise<void> => {
     });
 
     if (!task) throw new AppError("Tarefa não encontrada!", 404);
-
     if (task.user?.id !== userId) throw new AppError("Não autorizado!", 403);
 
     await repo.remove(task);
 };
 
 export const listTasks = async (userId: string): Promise<Partial<Task>[]> => {
+    if (!uuidValidate(userId)) throw new AppError("ID de usuário inválido!", 400);
+
     const repo = AppDataSource.getRepository(Task);
 
     const tasks = await repo.find({
@@ -67,6 +74,9 @@ export const listTasks = async (userId: string): Promise<Partial<Task>[]> => {
 };
 
 export const getTaskById = async (id: string, userId: string): Promise<Partial<Task>> => {
+    if (!uuidValidate(id)) throw new AppError("ID de tarefa inválido!", 400);
+    if (!uuidValidate(userId)) throw new AppError("ID de usuário inválido!", 400);
+
     const repo = AppDataSource.getRepository(Task);
 
     const task = await repo.findOne({
@@ -90,6 +100,10 @@ export const updateTask = async (
     userId: string,
     payload: Partial<Task>
 ): Promise<Partial<Task>> => {
+
+    if (!uuidValidate(id)) throw new AppError("ID de tarefa inválido!", 400);
+    if (!uuidValidate(userId)) throw new AppError("ID de usuário inválido!", 400);
+
     const repo = AppDataSource.getRepository(Task);
 
     const task = await repo.findOne({
